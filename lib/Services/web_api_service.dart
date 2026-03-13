@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 class WebApiService {
   // CORS proxy services that add proper headers
   static const List<String> corsProxies = [
-    'https://api.allorigins.win/raw?url=',
-    'https://thingproxy.freeboard.io/fetch/',
     'https://api.codetabs.com/v1/proxy?quest=',
+    'https://api.allorigins.win/raw?url=',
+    'https://corsproxy.io/?',
   ];
 
   static Future<http.Response?> fetchWithCorsHandling(String url) async {
