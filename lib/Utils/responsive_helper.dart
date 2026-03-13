@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ResponsiveHelper {
   static const double mobileBreakpoint = 600;
-  static const double tabletBreakpoint = 1024;
-  static const double desktopBreakpoint = 1440;
+  static const double tabletBreakpoint = 900;
+  static const double desktopBreakpoint = 1200;
 
   static bool isMobile(BuildContext context) {
     return MediaQuery.of(context).size.width < mobileBreakpoint;
@@ -14,8 +14,13 @@ class ResponsiveHelper {
     return width >= mobileBreakpoint && width < tabletBreakpoint;
   }
 
+  static bool isSmallWeb(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return width >= tabletBreakpoint && width < desktopBreakpoint;
+  }
+
   static bool isDesktop(BuildContext context) {
-    return MediaQuery.of(context).size.width >= tabletBreakpoint;
+    return MediaQuery.of(context).size.width >= desktopBreakpoint;
   }
 
   static double getResponsiveWidth(BuildContext context, {

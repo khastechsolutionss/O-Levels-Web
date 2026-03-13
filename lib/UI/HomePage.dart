@@ -114,14 +114,16 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: secondarycolor,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(ResponsiveHelper.getResponsiveHeight(context, 0.12)),
+              preferredSize: Size.fromHeight(
+                ResponsiveHelper.isMobile(context) ? 70 : ResponsiveHelper.getResponsiveHeight(context, 0.12),
+              ),
               child: Container(
                 color: primarycolor,
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: ResponsiveHelper.getResponsiveSpacing(context, mobile: 25, tablet: 40, desktop: 0),
-                      vertical: ResponsiveHelper.getResponsiveSpacing(context, mobile: 10, tablet: 15, desktop: 20),
+                      vertical: ResponsiveHelper.isMobile(context) ? 5 : 10,
                     ),
                     child: Row(
                       children: [
@@ -408,10 +410,12 @@ class _HomePageState extends State<HomePage> {
                       controller: cont1,
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: ResponsiveHelper.isTablet(context) ? 3 : 4,
+                        crossAxisCount: ResponsiveHelper.isDesktop(context) 
+                            ? 4 
+                            : (ResponsiveHelper.isSmallWeb(context) ? 3 : 2),
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
-                        childAspectRatio: 4.5, // More vertical space for text
+                        childAspectRatio: ResponsiveHelper.isDesktop(context) ? 4.5 : 3.8, 
                       ),
                       itemCount: sub.length,
                       itemBuilder: (context, index) {

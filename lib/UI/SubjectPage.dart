@@ -156,14 +156,16 @@ class _SubjectPageState extends State<SubjectPage> {
 
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(ResponsiveHelper.getResponsiveHeight(context, 0.12)),
+          preferredSize: Size.fromHeight(
+            ResponsiveHelper.isMobile(context) ? 70 : ResponsiveHelper.getResponsiveHeight(context, 0.12),
+          ),
           child: Container(
             color: primarycolor,
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: ResponsiveHelper.getResponsiveSpacing(context, mobile: 25, tablet: 40, desktop: 10),
-                  vertical: ResponsiveHelper.getResponsiveSpacing(context, mobile: 10, tablet: 15, desktop: 10),
+                  vertical: ResponsiveHelper.isMobile(context) ? 5 : 8,
                 ),
                 child: Row(
                   children: [
@@ -233,7 +235,7 @@ class _SubjectPageState extends State<SubjectPage> {
                 height: double.infinity,
                 width: ResponsiveHelper.isMobile(context)
                     ? w * 0.35
-                    : (ResponsiveHelper.isTablet(context) ? 200 : 250),
+                    : (ResponsiveHelper.isTablet(context) ? 150 : 250),
                 color: secondarycolor,
                 child: Column(
                   children: [
@@ -428,15 +430,12 @@ class _SubjectPageState extends State<SubjectPage> {
                                           padding: const EdgeInsets.all(16),
                                           gridDelegate:
                                               SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount:
-                                                ResponsiveHelper.isTablet(
-                                              context,
-                                            )
-                                                    ? 2
-                                                    : 3,
+                                            crossAxisCount: ResponsiveHelper.isDesktop(context)
+                                                ? 3
+                                                : (ResponsiveHelper.isSmallWeb(context) ? 2 : 1),
                                             crossAxisSpacing: 12,
                                             mainAxisSpacing: 12,
-                                            childAspectRatio: 9.0,
+                                            childAspectRatio: ResponsiveHelper.isDesktop(context) ? 9.0 : 7.0,
                                           ),
                                           itemCount: papers.length,
                                           itemBuilder: (context, index) {
@@ -573,15 +572,16 @@ class _SubjectPageState extends State<SubjectPage> {
                   children: [
                     _buildNumberedCircle(index + 1, index),
                     if (kIsWeb) ...[
-                      const SizedBox(width: 4),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Container(
-                          width: 1.2,
-                          height: 28,
-                          color: primarycolor.withOpacity(0.15),
+                      SizedBox(width: ResponsiveHelper.isTablet(context) ? 4 : 8),
+                      if (!ResponsiveHelper.isTablet(context)) 
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Container(
+                            width: 1.2,
+                            height: 28,
+                            color: primarycolor.withOpacity(0.15),
+                          ),
                         ),
-                      ),
                     ],
                     Expanded(
                       child: kIsWeb 
@@ -597,7 +597,7 @@ class _SubjectPageState extends State<SubjectPage> {
                                 style: TextStyle(
                                   color: primarycolor,
                                   fontWeight: isHoveredInternal ? FontWeight.bold : FontWeight.normal,
-                                  fontSize: 13,
+                                  fontSize: ResponsiveHelper.isTablet(context) ? 12 : 13,
                                 ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -606,19 +606,19 @@ class _SubjectPageState extends State<SubjectPage> {
                           ),
                     ),
                     if (kIsWeb) ...[
-                      // Vertical Divider for partitioning
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Container(
-                          width: 1.2,
-                          height: 28,
-                          color: primarycolor.withOpacity(0.15),
+                      if (!ResponsiveHelper.isTablet(context)) 
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Container(
+                            width: 1.2,
+                            height: 28,
+                            color: primarycolor.withOpacity(0.15),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: ResponsiveHelper.isTablet(context) ? 4 : 8),
                       _buildWebMSButton(index, context),
                     ] else ...[
-                      // Invisible placeholder to keep text centered relative to the whole card on mobile
+                      // Invisible placeholder
                       Opacity(
                         opacity: 0,
                         child: _buildNumberedCircle(index + 1, index),
@@ -648,7 +648,10 @@ class _SubjectPageState extends State<SubjectPage> {
               borderRadius: BorderRadius.circular(8),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: 8.0, 
+                  horizontal: ResponsiveHelper.isTablet(context) ? 2.0 : 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: isHovered ? primarycolor.withOpacity(0.15) : primarycolor.withOpacity(0.05),
                   borderRadius: BorderRadius.circular(8),
@@ -692,7 +695,10 @@ class _SubjectPageState extends State<SubjectPage> {
             borderRadius: BorderRadius.circular(8),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: EdgeInsets.symmetric(
+                horizontal: ResponsiveHelper.isTablet(context) ? 6 : 10, 
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: isHovered ? primarycolor.withOpacity(0.15) : primarycolor.withOpacity(0.06),
                 borderRadius: BorderRadius.circular(8),
