@@ -53,6 +53,7 @@ Future main() async {
       return true;
     };
     
+    analytics = FirebaseAnalytics.instance;
     debugPrint('✅ Firebase initialized successfully');
   } else {
     debugPrint('🌐 Web detected: Skipping Firebase initialization (not needed for web)');
@@ -64,6 +65,8 @@ Future main() async {
   // Start app
   runApp(const MyApp());
 }
+
+FirebaseAnalytics? analytics;
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

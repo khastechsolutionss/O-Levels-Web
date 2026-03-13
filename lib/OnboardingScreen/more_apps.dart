@@ -73,7 +73,7 @@ class _MoreAppsWidgetState extends State<MoreAppsWidget> {
                         final ad = ads[itemIndex];
                         return GestureDetector(
                           onTap: () async {
-                            analytics.logEvent(
+                            analytics?.logEvent(
                               name: 'in_app_ad_clicked',
                               parameters: {
                                 'date': DateTime.now().toString(),

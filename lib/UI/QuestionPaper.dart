@@ -113,7 +113,7 @@ class _QuestionPaperState extends State<QuestionPaper>
 
   Future<void> _openCalculator() async {
     const packageName = "com.oef.modernprime.scientificcalculator";
-    analytics.logEvent(
+    analytics?.logEvent(
       name: 'calculator_clicked',
       parameters: {'date': DateTime.now().toString(), 'action': 'click'},
     );
@@ -173,7 +173,7 @@ class _QuestionPaperState extends State<QuestionPaper>
             visible: canshare,
             child: InkWell(
               onTap: () async {
-                analytics.logEvent(
+                analytics?.logEvent(
                   name: 'print_pdf_clicked',
                   parameters: {
                     'date': DateTime.now().toString(),
@@ -199,7 +199,7 @@ class _QuestionPaperState extends State<QuestionPaper>
             visible: canshare,
             child: InkWell(
               onTap: () async {
-                analytics.logEvent(
+                analytics?.logEvent(
                   name: 'share_button_clicked',
                   parameters: {
                     'date': DateTime.now().toString(),
@@ -240,7 +240,7 @@ class _QuestionPaperState extends State<QuestionPaper>
             visible: canshare,
             child: InkWell(
               onTap: () {
-                analytics.logEvent(
+                analytics?.logEvent(
                   name: 'save_button_clicked',
                   parameters: {
                     'date': DateTime.now().toString(),
@@ -291,7 +291,7 @@ class _QuestionPaperState extends State<QuestionPaper>
             heroTag: "qp_editor",
             onPressed: () {
               if (!editorClickedLogged) {
-                analytics.logEvent(
+                analytics?.logEvent(
                   name: 'editor_clicked',
                   parameters: {
                     'date': DateTime.now().toString(),

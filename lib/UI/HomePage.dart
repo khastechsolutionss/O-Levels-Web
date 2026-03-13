@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                           }
 
                           if (tierToLog > myPaperLoggedTier) {
-                            analytics.logEvent(
+                            analytics?.logEvent(
                               name: 'my_paper_clicked',
                               parameters: {
                                 'date': DateTime.now().toString(),

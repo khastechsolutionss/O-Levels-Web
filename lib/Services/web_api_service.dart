@@ -79,8 +79,7 @@ class WebApiService {
   }
 
   static Future<List<dynamic>> fetchYears() async {
-    const 
-     = 'https://openeduforum.com/pages/O_Levels_Past_Papers/json_files/olevelyears.json';
+    const url = 'https://openeduforum.com/pages/O_Levels_Past_Papers/json_files/olevelyears.json';
     
     try {
       final response = await fetchWithCorsHandling(url);

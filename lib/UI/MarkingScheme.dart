@@ -79,7 +79,7 @@ class _MarkingSchemeState extends State<MarkingScheme>
           SizedBox(width: 15),
           InkWell(
             onTap: () async {
-              analytics.logEvent(
+              analytics?.logEvent(
                 name: 'print_pdf_clicked',
                 parameters: {
                   'date': DateTime.now().toString(),
@@ -103,7 +103,7 @@ class _MarkingSchemeState extends State<MarkingScheme>
           SizedBox(width: 15),
           InkWell(
             onTap: () async {
-              analytics.logEvent(
+              analytics?.logEvent(
                 name: 'share_button_clicked',
                 parameters: {
                   'date': DateTime.now().toString(),
@@ -140,7 +140,7 @@ class _MarkingSchemeState extends State<MarkingScheme>
           SizedBox(width: 15),
           InkWell(
             onTap: () {
-              analytics.logEvent(
+              analytics?.logEvent(
                 name: 'save_button_clicked',
                 parameters: {
                   'date': DateTime.now().toString(),
@@ -190,7 +190,7 @@ class _MarkingSchemeState extends State<MarkingScheme>
           FloatingActionButton(
             heroTag: "ms_calculator",
             onPressed: () {
-              analytics.logEvent(
+              analytics?.logEvent(
                 name: 'calculator_clicked',
                 parameters: {
                   'date': DateTime.now().toString(),
@@ -225,7 +225,7 @@ class _MarkingSchemeState extends State<MarkingScheme>
             heroTag: "ms_editor",
             onPressed: () {
               if (!editorClickedLogged) {
-                analytics.logEvent(
+                analytics?.logEvent(
                   name: 'editor_clicked',
                   parameters: {
                     'date': DateTime.now().toString(),
