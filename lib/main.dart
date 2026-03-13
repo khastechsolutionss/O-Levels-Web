@@ -34,39 +34,36 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // CRITICAL: Initialize Firebase FIRST before anything else
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (!kIsWeb) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  // Set up Firebase services after initialization
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // Set up Firebase services after initialization
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // Set up Crashlytics error handling
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
+    // Set up Crashlytics error handling
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
 
-  // Handle platform dispatcher errors
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+    // Handle platform dispatcher errors
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+    
+    debugPrint('✅ Firebase initialized successfully');
+  } else {
+    debugPrint('🌐 Web detected: Skipping Firebase initialization (not needed for web)');
+  }
 
   // Optimize image cache to prevent memory issues
   MemoryManager.optimizeImageCache();
 
-  debugPrint('✅ Firebase initialized successfully');
-
   // Start app
   runApp(const MyApp());
 }
-
-// Remove the background initialization function as it's no longer needed
-
-FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
-  analytics: analytics,
-);
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -95,7 +92,6 @@ class _MyAppState extends State<MyApp> {
           fontFamily: "poppins",
           highlightColor: primarycolor.withOpacity(0.1),
         ),
-        navigatorObservers: [observer],
         // home: UpgradeAlert(child: const SplashPage()),
         home: kIsWeb ? const HomePage() : UpgradeAlert(child: const SplashPage()),
       ),

@@ -140,26 +140,11 @@ class PapersController {
         }
       }
 
-      // 2. Fetch fresh data with reduced timeout
+      // 2. Fetch fresh data
       if (await isDeviceConnected()) {
-        var url = Uri.parse('$ParentUrl$pathString$EndUrl');
-        var request = await http
-            .get(url)
-            .timeout(
-              const Duration(seconds: 5), // Reduced from 15 to 5 seconds
-              onTimeout: () {
-                throw TimeoutException('Request timed out after 5 seconds');
-              },
-            );
+        final response = await WebApiService.fetchPapers(pathString);
 
-        if (request.statusCode == 200) {
-          var response = jsonDecode(request.body);
-
-          // Save to cache asynchronously
-          if (!kIsWeb && cacheFile != null) {
-            _saveCacheAsync(cacheFile, request.body);
-          }
-
+        if (response.isNotEmpty) {
           // Re-parse fresh data
           localPapers = [];
           for (var item in response) {
