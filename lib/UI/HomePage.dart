@@ -118,104 +118,61 @@ class _HomePageState extends State<HomePage> {
                 ResponsiveHelper.isMobile(context) ? 70 : ResponsiveHelper.getResponsiveHeight(context, 0.12),
               ),
               child: Container(
-                color: primarycolor,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: ResponsiveHelper.getResponsiveSpacing(context, mobile: 25, tablet: 40, desktop: 0),
+                      horizontal: ResponsiveHelper.getResponsiveSpacing(context, mobile: 15, tablet: 30, desktop: 20),
                       vertical: ResponsiveHelper.isMobile(context) ? 5 : 10,
                     ),
-                    child: Row(
+                    child: Stack(
+                      alignment: Alignment.center,
                       children: [
-                        if (!kIsWeb)
-                          IconButton(
-                            onPressed: () {
-                              goToLanding(context);
-                            },
-                            icon: const Icon(Icons.arrow_back, color: Colors.white),
-                          ),
-                        /* if (kIsWeb)
-                          IconButton(
-                            onPressed: () {
-                              goToLanding(context);
-                            },
-                            icon: const Icon(Icons.arrow_back, color: Colors.white),
-                          ), */
-                        SizedBox(width: kIsWeb ? 16 : 10),
-                          Text(
-                            "O-Level Courses",
-                            style: TextStyle(
-                              fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context,
-                                mobile: 18,
-                                tablet: 20,
-                                desktop: 22,
-                              ),
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Spacer(),
-                        /* InkWell(
-                          onTap: () async {
-                            myPaperClickCount++;
-
-                          int tierToLog = 0;
-                          if (myPaperClickCount >= 20) {
-                            tierToLog = 4;
-                          } else if (myPaperClickCount >= 10) {
-                            tierToLog = 3;
-                          } else if (myPaperClickCount >= 5) {
-                            tierToLog = 2;
-                          } else if (myPaperClickCount >= 1) {
-                            tierToLog = 1;
-                          }
-
-                          if (tierToLog > myPaperLoggedTier) {
-                            analytics?.logEvent(
-                              name: 'my_paper_clicked',
-                              parameters: {
-                                'date': DateTime.now().toString(),
-                                'tier': tierToLog,
-                                'total_clicks': myPaperClickCount,
-                              },
-                            );
-                            myPaperLoggedTier = tierToLog;
-                          }
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AlbumPage(),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              CupertinoIcons.rectangle_paperclip,
-                              color: whitecolor,
-                              size: ResponsiveHelper.isMobile(context) ? 24 : 28,
-                            ),
-                            Text(
-                              "My Papers",
-                              style: TextStyle(
-                                color: whitecolor,
-                                fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                  context,
-                                  mobile: 12,
-                                  tablet: 14,
-                                  desktop: 16,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (!kIsWeb)
+                                IconButton(
+                                  onPressed: () {
+                                    goToLanding(context);
+                                  },
+                                  icon: Icon(Icons.arrow_back, color: primarycolor),
                                 ),
+                              Image.asset(
+                                "assets/images/logo.png",
+                                height: ResponsiveHelper.isMobile(context) ? 35 : 45,
+                                fit: BoxFit.contain,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ), */
-                      SizedBox(width: ResponsiveHelper.getResponsiveSpacing(context, mobile: 5, tablet: 8, desktop: 12)),
-                    ],
-                  ),
+                        Text(
+                          "O-Level Subjects – Past Papers",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: ResponsiveHelper.getResponsiveFontSize(
+                              context,
+                              mobile: 15,
+                              tablet: 19,
+                              desktop: 21,
+                            ),
+                            color: primarycolor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                 ),
               ),
             ),

@@ -41,3 +41,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter build artifacts
+/build/
+/.flutter-plugins
+/.flutter-plugins-dependencies
+/.packages
+/.dart_tool/
+.pub/
+.pub-cache/
+
+# Web related
+
